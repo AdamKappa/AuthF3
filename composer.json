@@ -1,0 +1,17 @@
+{
+    "name": "ak/fatfreetutorial1",
+    "description": "tutorial about fat free php framework",
+    "autoload": {
+        "psr-4": {
+            "Ak\\Fatfreetutorial1\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ak"
+        }
+    ],
+    "require": {
+        "bcosca/fatfree-core": "3.9.0"
+    }
+}
