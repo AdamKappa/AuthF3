@@ -65,7 +65,7 @@
             <p>Already have an account? <a href="/login">Login here</a>.</p>
         </form>
         <!-- Display sign up error message here -->
-        <div class="alert alert-danger <?php echo (empty($message)) ? 'display-no' : ''; ?>"><?php echo $message; ?></div>
+        <div class="alert alert-danger"></div>
     </div>
 </body>
 </html>

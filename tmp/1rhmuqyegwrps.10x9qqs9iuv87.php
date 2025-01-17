@@ -4,22 +4,13 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="pages/login/login.css">
 </head>
 <body>
     <div class="wrapper">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
-        <?php 
-        if(!empty($login_message)){
-            echo '<div class="alert alert-danger">' . $login_message . '</div>';
-        }
-        
-        if(isset($_SESSION['SignUpMessage'])){
-            echo '<div class="alert alert-success">' . $_SESSION['SignUpMessage'] . '</div>';
-            unset($_SESSION['SignUpMessage']);
-        }       
-        ?>
+
 
         <form action="" method="post">
             <div class="form-group">

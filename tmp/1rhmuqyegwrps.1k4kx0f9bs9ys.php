@@ -10,16 +10,7 @@
     <div class="wrapper">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
-        <?php 
-        if(!empty($login_message)){
-            echo '<div class="alert alert-danger">' . $login_message . '</div>';
-        }
-        
-        if(isset($_SESSION['SignUpMessage'])){
-            echo '<div class="alert alert-success">' . $_SESSION['SignUpMessage'] . '</div>';
-            unset($_SESSION['SignUpMessage']);
-        }       
-        ?>
+
 
         <form action="" method="post">
             <div class="form-group">
