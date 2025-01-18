@@ -10,18 +10,12 @@
     <div class="wrapper">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
-        <?php 
-        if(!empty($login_message)){
-            echo '<div class="alert alert-danger">' . $login_message . '</div>';
-        }
         
-        if(isset($_SESSION['SignUpMessage'])){
-            echo '<div class="alert alert-success">' . $_SESSION['SignUpMessage'] . '</div>';
-            unset($_SESSION['SignUpMessage']);
-        }       
-        ?>
+        <check if="{{ @login_message }}">
+            <div class="alert alert-danger">{{$login_message}}</div>
+        </check>
 
-        <form action="" method="post">
+        <form method="post" action="/login/authenticate" >
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" name="username" class="form-control" placeholder="Please enter Username" required>

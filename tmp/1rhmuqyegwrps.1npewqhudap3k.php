@@ -13,7 +13,7 @@
         </form>
     </div>
     <div class="welcome-container">
-        <p>Welcome. You are an X</p>
+        <p>Welcome <?= ($LoggedInUser->getUsername()) ?>. You are an <?= ($LoggedInUser.access_level) ?></p>
         <p><a href="/editpage">Go to edit page</a></p>
     </div>
     

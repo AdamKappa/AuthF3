@@ -10,9 +10,12 @@
     <div class="wrapper">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
+        
+        <?php if ($login_message): ?>
+            <div class="alert alert-danger"><?= ($login_message) ?></div>
+        <?php endif; ?>
 
-
-        <form action="" method="post">
+        <form method="post" action="/login/authenticate" >
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" name="username" class="form-control" placeholder="Please enter Username" required>

@@ -3,7 +3,8 @@
     "description": "tutorial about fat free php framework",
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "App\\models\\": "src/models/"
         }
     },
     "authors": [
