@@ -10,9 +10,11 @@ class Welcome extends AppController {
         // get the route parameter 'status' (e.g., 'updated')
         $status = $f3->get('PARAMS.status');
         // Based on the status, set a message
-        if ($status === 'success') {
+        if ($status === 'success-update') {
             $f3->set('message', 'Your account has been successfully updated!');
-        }else{
+        }else if ($status === 'success-updates') {
+            $f3->set('message', 'Account(s) has been successfully updated!');
+        }else {
             $f3->set('message', NULL);
         }
         // Get the json LoggedInUser from the session
