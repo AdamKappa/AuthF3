@@ -13,12 +13,11 @@
         </form>
     </div>
     <check if="{{ @message }}">
-        <div class="alert alert-success">{{$message}}</div>
+        <div class="alert alert-success">{{ @message }}</div>
     </check>
     <div class="welcome-container">
         <p>Welcome {{ @username }}. You are an {{ @accessLevel }}.</p>
         <p><a href="/editpage">Go to edit page</a></p>
     </div>
-    
 </body>
 </html>

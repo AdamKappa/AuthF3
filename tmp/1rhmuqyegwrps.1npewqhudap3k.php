@@ -19,6 +19,5 @@
         <p>Welcome <?= ($username) ?>. You are an <?= ($accessLevel) ?>.</p>
         <p><a href="/editpage">Go to edit page</a></p>
     </div>
-    
 </body>
 </html>

@@ -11,8 +11,8 @@
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
         
-        <check if="{{ @login_message }}">
-            <div class="alert alert-danger">{{$login_message}}</div>
+        <check if="{{ @loginMessage }}">
+            <div class="alert alert-danger">{{  @loginMessage }}</div>
         </check>
 
         <form method="post" action="/login/authenticate" >

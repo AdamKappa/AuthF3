@@ -2,19 +2,21 @@
 
 namespace App\controllers;
 
+// Import the Database class
 use App\models\Database;
 
 class EditPage extends AppController{
+
     public function render($f3, $params){
-        //diffenrent implement of url params - here using function's parameters
+        
+        //initialize template variable message
+        $f3->set("message", NULL);
+        //diffenrent implement of url params - here using function's parameters $params
         if(isset($params["error"]) && $params["error"] === "error-update"){
             $f3->set("message", "Failed to update your account. Please try again.");
         }
         else if(isset($params["error"]) && $params["error"] === "error-no-selected-user"){
             $f3->set("message", "No user(s) selected. Please try again.");
-        }
-        else{
-            $f3->set("message", NULL);
         }
         
         // Get the json LoggedInUser from the SESSION
@@ -55,8 +57,10 @@ class EditPage extends AppController{
 
         if ($result) {
             $f3->reroute('/welcome/success-update');
+            return;
         } else {
             $f3->reroute('/editpage/error-update');
+            return;
         }
     }
 
@@ -76,10 +80,11 @@ class EditPage extends AppController{
         // connect to db
         $db = new Database();
         $connection = $db->connect();
-
+        
+        $rows_affected = 0;
         // for each selectedUser run a query to database using prepared statement.
         foreach ($selectedUsers as $selectedUserID) {
-            $connection->exec(
+            $rows = $connection->exec(
                 "UPDATE users SET username = ?, password = ? WHERE ID = ?", 
                 [ 
                     $usernames[$selectedUserID], 
@@ -87,13 +92,14 @@ class EditPage extends AppController{
                     $selectedUserID,
                 ]
             );
+
+            $rows_affected += $rows;
         }
 
         // Disconnect from $db
         $db->disconnect();
-
         // after success redirect to welcome page with an success message
-        $f3->reroute('/welcome/success-updates');
+        $f3->reroute("/welcome/".$rows_affected."/updated-success");
         
     }
 }

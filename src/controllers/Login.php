@@ -6,16 +6,18 @@ namespace App\controllers;
 use App\models\Database;
 use App\models\LoggedInUser;
 
-class Login extends AppController {
+class Login extends AlreadyLoggedIn {
     public function render($f3){
 
-        // Check if there's an error message (in session) to display
-        $errorMessage = $f3->get('SESSION.error');
-        // pass  variable $errorMessage to template
-        $f3->set("login_message", $errorMessage);
-        // Clear the error message from the session
-        $f3->clear('SESSION.error');
-        //$f3->set('User', $f3->get('SESSION.LoggedInUser'));
+        //initialize template variable loginMessage
+        $f3->set("loginMessage", NULL);
+        // get the route parameter 'error' 
+        $error = $f3->get("PARAMS.error");
+        if($error === "invalid-credentials"){
+            // set template variable $loginMessage 
+            $f3->set("loginMessage","Invalid credentials. Please try again.");
+        }
+        
         // Render login page template
         echo \Template::instance()->render("/pages/login/login.php");
     }
@@ -30,8 +32,6 @@ class Login extends AppController {
         if ($LoggedInUser) {
             //set necessary session variables
             $f3->set('SESSION.loggedIn', true);
-            // Set an error message in session
-            $f3->set('SESSION.error', 'Already Connected.');
             // convert LoggedInUser obj to JSON to bypass serialize/unserialize issues
             $jsonLoggedInUser = json_encode([
                 'id' => $LoggedInUser->getID(),
@@ -45,7 +45,7 @@ class Login extends AppController {
             // Set an error message in session
             $f3->set('SESSION.error', 'Invalid credentials. Please try again.');
             // Redirect back to the login page
-            $f3->reroute('/login');
+            $f3->reroute('/login/invalid-credentials');
         }
     }
 
@@ -58,16 +58,14 @@ class Login extends AppController {
             // Get database connection
             $conn = $db->connect();
             
-
             // Query the database to check user credentials [use parameterized method.. like prepare statement]
             $user = $conn->exec("SELECT id,username,access_level FROM users WHERE username = ? AND password = ?", [$username, $password]);
 
             // Check if user exists
             if (isset($user[0])) {
                 //success
-                //create a LoggedInUser object and return it
+                //create a LoggedInUser object, disconnect from $db and return LoggedInUser object
                 $LoggedInUser = new LoggedInUser($user[0]["id"], $user[0]["username"], $user[0]["access_level"]);
-                // Disconnect from $db
                 $db->disconnect();
                 return $LoggedInUser;
                 //return true; // Success

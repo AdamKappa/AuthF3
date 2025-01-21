@@ -11,8 +11,8 @@
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
         
-        <?php if ($login_message): ?>
-            <div class="alert alert-danger"><?= ($login_message) ?></div>
+        <?php if ($loginMessage): ?>
+            <div class="alert alert-danger"><?= ($loginMessage) ?></div>
         <?php endif; ?>
 
         <form method="post" action="/login/authenticate" >

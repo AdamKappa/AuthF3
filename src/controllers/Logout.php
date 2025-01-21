@@ -11,6 +11,4 @@ class Logout {
     }
 }
 
-
-
 ?>

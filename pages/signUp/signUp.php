@@ -5,37 +5,13 @@
     <title>Sign Up</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/pages/signup/signup.css">
-    <script>
-        function checkPasswords() {
-            const password = document.getElementById("password").value;
-            const re_password = document.getElementById("confirm_password").value;
-            const password_feedback = document.getElementById("password_feedback");
-            const submitBtn = document.getElementById("submitBtn");
-            
-            if(password === "" || re_password === ""){
-                password_feedback.textContent = "";
-                password_feedback.className = "display-no";
-                submitBtn.disabled = true;
-            }
-            else if(password === re_password) {
-                password_feedback.textContent = "Passwords match!";
-                password_feedback.className = "alert alert-success match";
-                submitBtn.disabled = false;
-                console.log("password same");
-            } else { 
-                password_feedback.textContent = "Passwords do not match!";
-                password_feedback.className = "alert alert-warning no-match";
-                submitBtn.disabled = true;
-                console.log("password not same");
-            }
-        }
-    </script>
+    <script src="/pages/signup/signup.js" defer></script>
 </head>
 <body>
     <div class="wrapper">
         <h2>Sign Up</h2>
         <p>Please fill this form to create an account.</p>
-        <form action="" method="post">
+        <form method="post" action="/signup">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" class="form-control" placeholder="Please enter a username" required> 
@@ -65,7 +41,9 @@
             <p>Already have an account? <a href="/login">Login here</a>.</p>
         </form>
         <!-- Display sign up error message here -->
-        <div class="alert alert-danger <?php echo (empty($message)) ? 'display-no' : ''; ?>"><?php echo $message; ?></div>
+        <check if="{{ @message }}">
+            <div class="alert alert-danger" >{{ @message }}</div>
+        </check>
     </div>
 </body>
 </html>
