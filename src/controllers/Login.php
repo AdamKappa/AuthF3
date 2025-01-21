@@ -15,6 +15,7 @@ class Login extends AppController {
         $f3->set("login_message", $errorMessage);
         // Clear the error message from the session
         $f3->clear('SESSION.error');
+        //$f3->set('User', $f3->get('SESSION.LoggedInUser'));
         // Render login page template
         echo \Template::instance()->render("/pages/login/login.php");
     }
@@ -27,14 +28,17 @@ class Login extends AppController {
         // Authenticate user
         $LoggedInUser = $this->authenticate($username, $password);
         if ($LoggedInUser) {
-            // if (class_exists('App\\models\\LoggedInUser')) {
-            //     $f3->set('SESSION.LoggedInUser', serialize($LoggedInUser));
-            // } else {
-            //     echo "Class not found while serializing.--on login handleLogin()";
-            // }
-            // Set a session variable to track the user is logged in
+            //set necessary session variables
             $f3->set('SESSION.loggedIn', true);
-            $f3->set('SESSION.LoggedInUser', serialize($LoggedInUser)); 
+            // Set an error message in session
+            $f3->set('SESSION.error', 'Already Connected.');
+            // convert LoggedInUser obj to JSON to bypass serialize/unserialize issues
+            $jsonLoggedInUser = json_encode([
+                'id' => $LoggedInUser->getID(),
+                'username' => $LoggedInUser->getUsername(),
+                'access_level' => $LoggedInUser->getAccessLevel()
+            ]);
+            $f3->set('SESSION.LoggedInUser', $jsonLoggedInUser); 
             // Redirect to the welcome page after successful login
             $f3->reroute('/welcome');
         } else {
@@ -63,6 +67,8 @@ class Login extends AppController {
                 //success
                 //create a LoggedInUser object and return it
                 $LoggedInUser = new LoggedInUser($user[0]["id"], $user[0]["username"], $user[0]["access_level"]);
+                // Disconnect from $db
+                $db->disconnect();
                 return $LoggedInUser;
                 //return true; // Success
             }
