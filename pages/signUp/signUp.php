@@ -30,9 +30,9 @@
                     <label>User Type </label>
                 </div>
                 <label for="simple_user">Simple User</label>
-                <input type="radio" name="user_type" id="simple_user" class="form-check-input" value="1" checked>
+                <input type="radio" name="user_type" id="simple_user" class="form-check-input" value="Simple User" checked>
                 <label for="admin">Admin</label>
-                <input type="radio" name="user_type" id="admin" class="form-check-input" value="0">
+                <input type="radio" name="user_type" id="admin" class="form-check-input" value="Administrator">
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" id="submitBtn" value="Sign Up" disabled>

@@ -36,13 +36,9 @@ class Welcome extends AppController {
             $userData = json_decode($jsonLoggedInUser);
             //echo var_dump($userData);
             //set template variables
-            $f3->set("username",$userData->username);
-            if($userData->access_level === "0") {
-                $f3->set("accessLevel","Administrator");
-            } 
-            else if($userData->access_level === "1"){
-                $f3->set("accessLevel","Simple User");
-            }
+            $f3->set("username", $userData->username);
+            $f3->set("accessLevel", $userData->access_level);
+            
         } else {
             echo "No logged-in user found.";
         }

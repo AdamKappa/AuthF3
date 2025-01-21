@@ -11,7 +11,7 @@
         <h2>Edit page</h2>
         <p>Hi {{ @UserData->username }}!</p>
     
-    <check if="{{ @UserData->access_level == '1' }}">
+    <check if="{{ @UserData->access_level === 'Simple User' }}">
         <div class="simple-container">    
             <form action="/submitSimpleEditpage" method="post">
                 <div class="form-group">
@@ -29,7 +29,7 @@
             </form>
         </div>
     </check>
-    <check if="{{ @UserData->access_level == '0' }}">
+    <check if="{{ @UserData->access_level === 'Administrator' }}">
         <form action="/submitAdminEditpage" method="post">
             <repeat group="{{ @Users }}" value="{{ @User }}">
                 <div class="admin-container">

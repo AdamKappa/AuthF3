@@ -11,7 +11,7 @@
         <h2>Edit page</h2>
         <p>Hi <?= ($UserData->username) ?>!</p>
     
-    <?php if ($UserData->access_level == '1'): ?>
+    <?php if ($UserData->access_level === 'Simple User'): ?>
         <div class="simple-container">    
             <form action="/submitSimpleEditpage" method="post">
                 <div class="form-group">
@@ -29,7 +29,7 @@
             </form>
         </div>
     <?php endif; ?>
-    <?php if ($UserData->access_level == '0'): ?>
+    <?php if ($UserData->access_level === 'Administrator'): ?>
         <form action="/submitAdminEditpage" method="post">
             <?php foreach (($Users?:[]) as $User): ?>
                 <div class="admin-container">
