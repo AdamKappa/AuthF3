@@ -21,7 +21,7 @@ class Signup extends AppController{
         }
         
         //render Sign Up page
-        echo \Template::instance()->render("/pages/signup/signup.php");
+        echo \Template::instance()->render("src/pages/signup/signup.php");
     }
 
     public function handleSignup($f3){

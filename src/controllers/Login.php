@@ -19,7 +19,7 @@ class Login extends AlreadyLoggedIn {
         }
         
         // Render login page template
-        echo \Template::instance()->render("/pages/login/login.php");
+        echo \Template::instance()->render("/src/pages/login/login.php");
     }
 
     public function handleLogin($f3) {

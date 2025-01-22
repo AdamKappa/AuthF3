@@ -35,7 +35,7 @@ class EditPage extends AppController{
         $Users = $f3->set("Users", $usersResults);  
         
         //render Edit page
-        echo \Template::instance()->render("/pages/editpage/editpage.php");
+        echo \Template::instance()->render("/src/pages/editpage/editpage.php");
     }
 
     public function submitNewDataSimpleUser($f3){

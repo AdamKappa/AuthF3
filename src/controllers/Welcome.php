@@ -44,7 +44,7 @@ class Welcome extends AppController {
         }
 
         // Render the welcome page
-        echo \Template::instance()->render('/pages/welcome/welcome.php');
+        echo \Template::instance()->render('/src/pages/welcome/welcome.php');
     }
 }
 ?>

@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="/pages/signup/signup.css">
-    <script src="/pages/signup/signup.js" defer></script>
+    <link rel="stylesheet" href="<?= ($BASE) ?>/src/pages/signup/signup.css">
+    <script src="<?= ($BASE) ?>/src/pages/signup/signup.js" defer></script>
 </head>
 <body>
     <div class="wrapper">
         <h2>Sign Up</h2>
         <p>Please fill this form to create an account.</p>
-        <form method="post" action="/signup">
+        <form method="post" action="<?= ($BASE) ?>/signup">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" class="form-control" placeholder="Please enter a username" required> 
@@ -38,12 +38,12 @@
                 <input type="submit" class="btn btn-primary" id="submitBtn" value="Sign Up" disabled>
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
-            <p>Already have an account? <a href="/login">Login here</a>.</p>
+            <p>Already have an account? <a href="<?= ($BASE) ?>/login">Login here</a>.</p>
         </form>
         <!-- Display sign up error message here -->
-        <check if="{{ @message }}">
-            <div class="alert alert-danger" >{{ @message }}</div>
-        </check>
+        <?php if ($message): ?>
+            <div class="alert alert-danger" ><?= ($message) ?></div>
+        <?php endif; ?>
     </div>
 </body>
 </html>
