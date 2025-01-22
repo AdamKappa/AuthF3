@@ -5,7 +5,7 @@ namespace App\controllers;
 // Import LoggedInUser class
 use App\models\LoggedInUser;
 
-class Welcome extends AppController {
+class Welcome extends Authorizer {
     public function render($f3) {
         
         //initialize template variable message
@@ -31,17 +31,14 @@ class Welcome extends AppController {
         // Get the json LoggedInUser from the session
         $jsonLoggedInUser = $f3->get("SESSION.LoggedInUser");
         //echo $jsonLoggedInUser;
-        if ($jsonLoggedInUser) {
-            //decode jsonLoggedInUser json
-            $userData = json_decode($jsonLoggedInUser);
-            //echo var_dump($userData);
-            //set template variables
-            $f3->set("username", $userData->username);
-            $f3->set("accessLevel", $userData->access_level);
-            
-        } else {
-            echo "No logged-in user found.";
-        }
+        
+        //decode jsonLoggedInUser json
+        $userData = json_decode($jsonLoggedInUser);
+        
+        //set template variables
+        $f3->set("username", $userData->username);
+        $f3->set("accessLevel", $userData->access_level);
+        
 
         // Render the welcome page
         echo \Template::instance()->render('/src/pages/welcome/welcome.php');

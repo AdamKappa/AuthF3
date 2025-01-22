@@ -36,8 +36,7 @@ class Signup extends AppController{
         //first check if username already exist on DB table
         $existUser = $connection->exec("SELECT username FROM users WHERE username = ?", [$newUserName]);
         
-        echo "row effected:".count($existUser);
-        if(count($existUser)){
+        if($existUser){
             $f3->reroute("/signup/user-exist");
             return;
         }

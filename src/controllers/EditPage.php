@@ -5,7 +5,7 @@ namespace App\controllers;
 // Import the Database class
 use App\models\Database;
 
-class EditPage extends AppController{
+class EditPage extends Authorizer{
 
     public function render($f3, $params){
         
@@ -17,6 +17,9 @@ class EditPage extends AppController{
         }
         else if(isset($params["error"]) && $params["error"] === "error-no-selected-user"){
             $f3->set("message", "No user(s) selected. Please try again.");
+        }else if(isset($params["error"]) && $params["error"] === "not-loggedIn"){
+            // set template variable $loginMessage 
+            $f3->set("loginMessage","Please login first.");
         }
         
         // Get the json LoggedInUser from the SESSION

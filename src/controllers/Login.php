@@ -6,7 +6,16 @@ namespace App\controllers;
 use App\models\Database;
 use App\models\LoggedInUser;
 
-class Login extends AlreadyLoggedIn {
+class Login {
+
+    //this method auto-called before route on login page 
+    public function beforeroute($f3){
+        //Authorize if user is already logged in 
+        if ($f3->get('SESSION.loggedIn')) {
+            // if so, redirect to the welcome page with appropriate message
+            $f3->reroute('/welcome/already-loggedin/');
+        }
+    }
     public function render($f3){
 
         //initialize template variable loginMessage
@@ -17,13 +26,16 @@ class Login extends AlreadyLoggedIn {
             // set template variable $loginMessage 
             $f3->set("loginMessage","Invalid credentials. Please try again.");
         }
-        
+        else if($error === "not-loggedIn"){
+            // set template variable $loginMessage 
+            $f3->set("loginMessage","Please login first.");
+        }
         // Render login page template
         echo \Template::instance()->render("/src/pages/login/login.php");
     }
 
     public function handleLogin($f3) {
-        // get username and password from  form
+        // get username and password from form
         $username = $f3->get('POST.username');
         $password = base64_encode($f3->get('POST.password'));
         
@@ -62,7 +74,7 @@ class Login extends AlreadyLoggedIn {
             $user = $conn->exec("SELECT id,username,access_level FROM users WHERE username = ? AND password = ?", [$username, $password]);
 
             // Check if user exists
-            if (isset($user[0])) {
+            if ($user) {
                 //success
                 //create a LoggedInUser object, disconnect from $db and return LoggedInUser object
                 $LoggedInUser = new LoggedInUser($user[0]["id"], $user[0]["username"], $user[0]["access_level"]);
