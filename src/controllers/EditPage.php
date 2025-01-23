@@ -24,18 +24,20 @@ class EditPage extends Authorizer{
         
         // Get the json LoggedInUser from the SESSION
         $jsonLoggedInUser = $f3->get("SESSION.LoggedInUser");
-        $UserData = json_decode($jsonLoggedInUser);
-        $f3->set("UserData", $UserData);
-        // $f3->set("UserID",$UserData->id);
-        // $f3->set("UserName",$UserData->username);
-        // $f3->set("UserAccess",$UserData->access_level);
+        $userData = json_decode($jsonLoggedInUser);
+        $f3->set("UserData", $userData);
+        // $f3->set("UserID",$userData->id);
+        // $f3->set("UserName",$userData->username);
+        // $f3->set("UserAccess",$userData->access_level);
         
         // Fetch all users from the database (for admin view)
-        $db = new Database();
-        $connection = $db->connect();
-        $usersResults = $connection->exec("SELECT ID, username FROM users");
-        // Pass the users data(its an array of arrays) to the template as template variable
-        $Users = $f3->set("Users", $usersResults);  
+        if($userData->access_level === "Administrator"){
+            $db = new Database();
+            $connection = $db->connect();
+            $usersResults = $connection->exec("SELECT ID, username FROM users");
+            // Pass the users data(its an array of arrays) to the template as template variable
+            $Users = $f3->set("Users", $usersResults); 
+        }
         
         //render Edit page
         echo \Template::instance()->render("/src/pages/editpage/editpage.php");
